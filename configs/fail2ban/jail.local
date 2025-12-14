@@ -31,7 +31,7 @@ findtime = 120
 bantime = -1
 
 [sshd-aggressive]
-enabled = false
+enabled = true
 port = 2222
 filter = sshd-aggressive
 logpath = /var/log/auth.log
