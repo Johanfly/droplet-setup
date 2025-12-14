@@ -152,7 +152,7 @@ Setelah Nginx terinstall, group `www-data` sudah tersedia:
 
 ```bash
 # Tambahkan dailyuser ke group www-data
-sudo usermod -aG www-data dailyuser
+sudo usermod -aG www-data $USER
 
 # Logout dan login lagi agar group aktif
 exit
@@ -165,7 +165,7 @@ ssh dailyuser@IP_DROPLET
 
 # Verifikasi group
 groups
-# Output: dailyuser sudo www-data
+# Output: username sudo www-data
 
 # Buat direktori web
 sudo mkdir -p /var/www
@@ -174,9 +174,9 @@ sudo mkdir -p /var/www
 sudo chown -R www-data:www-data /var/www
 sudo chmod -R 775 /var/www
 
-# Setup ACL agar dailyuser bisa read/write/execute
-sudo setfacl -R -m u:dailyuser:rwx /var/www
-sudo setfacl -R -d -m u:dailyuser:rwx /var/www
+# Setup ACL agar current user bisa read/write/execute
+sudo setfacl -R -m u:$USER:rwx /var/www
+sudo setfacl -R -d -m u:$USER:rwx /var/www
 
 # Verifikasi ACL
 getfacl /var/www
@@ -185,7 +185,7 @@ getfacl /var/www
 > **Catatan ACL:**
 > - `-R` = recursive (semua subdirectory)
 > - `-d` = default ACL (berlaku untuk file/folder baru)
-> - `-m u:dailyuser:rwx` = user dailyuser dapat read, write, execute
+> - `-m u:$USER:rwx` = current user dapat read, write, execute
 
 ---
 
