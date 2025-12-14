@@ -1,0 +1,41 @@
+[DEFAULT]
+bantime = 365d
+findtime = 600
+maxretry = 3
+backend = auto
+banaction = iptables-multiport
+banaction_allports = iptables-allports
+# Whitelist IP yang tidak akan di-ban
+# Masukan IP Tailscale Anda dari device lain (laptop/handphone)
+# Check: tailscale ip -4
+ignoreip = 127.0.0.1/8 ::1
+
+[sshd]
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+action = %(action_)s
+maxretry = 5
+findtime = 300
+bantime = -1
+
+[sshd-ddos]
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+action = %(action_)s
+maxretry = 10
+findtime = 120
+bantime = -1
+
+[sshd-aggressive]
+enabled = false
+port = 2222
+filter = sshd-aggressive
+logpath = /var/log/auth.log
+action = %(action_)s
+maxretry = 2
+findtime = 60
+bantime = -1
