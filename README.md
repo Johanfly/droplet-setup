@@ -202,10 +202,20 @@ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZS
 Edit `~/.zshrc`:
 
 ```bash
+# Hindari duplikat di history
+setopt HIST_IGNORE_ALL_DUPS    # Hapus duplikat lama, simpan yang baru
+setopt HIST_FIND_NO_DUPS       # Jangan tampilkan duplikat saat search
+setopt HIST_SAVE_NO_DUPS       # Jangan tulis duplikat ke file
+HISTORY_IGNORE="(reboot|shutdown|poweroff|halt|init 0|init 6)"
+
 plugins=( 
     zsh-autosuggestions
     fast-syntax-highlighting
 )
+
+# Alias untuk bersihkan duplikat history
+alias cleanhis='sort -t ";" -k2 -u ~/.zsh_history > /tmp/zsh_history_clean && mv /tmp/zsh_history_clean ~/.zsh_history && fc -R && echo "✅ History c
+leaned!"'
 ```
 
 ```bash
