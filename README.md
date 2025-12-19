@@ -546,7 +546,7 @@ nvm alias default v22.17.0
 ## Step 13: Setup PM2 (Node.js Process Manager)
 
 ```bash
-sudo npm install -g pm2
+npm install -g pm2
 
 # Start aplikasi
 cd /path/to/app
