@@ -256,6 +256,7 @@ Download dari: https://tailscale.com/download
 - **iOS/Android**: Download dari App Store/Play Store
 
 > **Penting:** Login dengan akun Tailscale yang sama!
+> setelah setup semua device Disable Key Expiry
 
 ---
 
