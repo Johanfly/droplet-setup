@@ -258,6 +258,62 @@ Download dari: https://tailscale.com/download
 > **Penting:** Login dengan akun Tailscale yang sama!
 > setelah setup semua device Disable Key Expiry
 
+### Aktifkan Tailscale Lock
+
+Tailscale Lock memastikan **tidak ada device baru yang bisa join tailnet kamu tanpa persetujuan digital (signature)** dari device terpercaya. Ini mencegah serangan supply chain jika auth key kamu bocor.
+
+  #### 1. Inisialisasi Lock
+  Pilih satu device utama (misal laptop admin atau VPS ini) sebagai "Signing Node".
+
+  Check Status:
+  ```bash
+  tailscale lock status
+  ```
+
+  jika belum aktif respon seperti ini:
+  ```bash
+  Tailnet Lock is NOT enabled.
+
+  This node's tailnet-lock key: tlpub:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  ```
+
+  Jalankan perintah ini:
+  ```bash
+  sudo tailscale lock init --confirm --gen-disablements 2 tlpub:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  ```
+
+  > [PENTING]
+  > Output akan menampilkan **Disablement Secrets**. Simpan kode ini di Password Manager! Kode ini **HANYA MUNCUL SEKALI** dan vital untuk mematikan Lock jika kamu kehilangan akses.
+
+  #### 2. Cara Sign Device Baru
+
+  Setelah Lock aktif, device baru yang login akan statusnya `Locked`. Kamu harus mengizinkannya manual dari Signing Node.
+
+  **Di Device Baru:**
+
+  Cek status untuk dapet Node Key:
+  ```bash
+  tailscale lock status
+  ```
+
+  Copy `node-key` atau public key-nya.
+
+  **Di Signing Node (Admin):**
+
+  Jalankan perintah sign:
+  ```bash
+  tailscale lock sign <node-key-device-baru>
+  ```
+
+  #### 3. Verifikasi
+
+  Pastikan status Lock aktif:
+  ```bash
+  tailscale lock status
+  ```
+
+  Harusnya muncul: `Tailnet Lock is ENABLED`.
+  
 ---
 
 ## Step 7: Konfigurasi SSH (Hanya via Tailscale)
