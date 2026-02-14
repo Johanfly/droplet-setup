@@ -7,5 +7,5 @@ for i in {1..60}; do
     fi
     sleep 1
 done
-echo "Tailscale IP not available after 60s"
-exit 1
+echo "Tailscale IP not available after 60s, starting sshd anyway"
+exit 0
