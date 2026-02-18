@@ -100,6 +100,12 @@ ssh dailyuser@IP_DROPLET
 
 # Lock akun root
 sudo passwd -l root
+# Reset tanggal ubah password ke hari ini
+sudo chage -d $(date +%Y-%m-%d) root
+# Matikan masa kadaluarsa selamanya
+sudo chage -M -1 root
+# Verifikasi Hasil
+sudo chage -l root
 ```
 
 ### Setup Swap Memory (Jika Belum Ada)
